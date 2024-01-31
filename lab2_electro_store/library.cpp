@@ -1,75 +1,164 @@
 #include "Header.h"
 
-CustomerCL::CustomerCL(std::string custname, std::string passw, std::string mail)
-{
+Customerr::Customerr(std::string custname, std::string passw, std::string mail) {
 	CustomerName = custname;
 	Password = passw;
 	CustomerMail = mail;
 }
-CustomerCL::CustomerCL(std::string custname)
-{
-	CustomerName = custname;
-}
 
-CustomerCL::CustomerCL()
-{
+Customerr::Customerr(std::string custname) {
+	CustomerName = custname;
+	
+}
+Customerr::Customerr() {
 	
 }
 
-std::string CustomerCL::GetCustomerName() {
+
+std::string Customerr::GetCustomerName() {
 	return CustomerName;
 }
 
-std::string CustomerCL::GetCustomerPassword() {
+std::string Customerr::GetCustomerPassword() {
 	return Password;
 }
 
-std::string CustomerCL::GetCustomerMail() {
+std::string Customerr::GetCustomerMail() {
 	return CustomerMail;
 }
 
-//ListOfProductt Customerr::GetPurchasedProduct() {
-//	return PurchasedProduct;
-//}
+ListOfProductt Customerr::GetPurchProd() {
+	return PurchasedProduct;
+}
 
 
 
-//Sellerr::Sellerr(std::string sellname, std::string sellmail, std::string rating, std::vector<Productt> prodonsal, std::string passw) {
-//	SellerName = sellname;
-//	SellerMail = sellmail;
-//	Rating = rating;
-//	ProdOnSale = prodonsal;
-//	Password = passw;
-//
-//}
-//
-//Sellerr::Sellerr(std::string sellname) {
-//	SellerName = sellname;
-//}
-//
-//Sellerr::Sellerr() {
-//}
-//
-//std::string Sellerr::GetSellerName() {
-//	return SellerName;
-//}
-//
-//std::string Sellerr::GetSellerMail() {
-//	return SellerMail;
-//}
-//
-//std::string Sellerr::GetRating() {
-//	return Rating;
-//}
-//
-//std::vector<Productt> Sellerr::GetProdOnSale() {
-//	return ProdOnSale;
-//}
-//
-//std::string Sellerr::GetPassword() {
-//	return Password;
-//}
-///
+Sellerr::Sellerr(std::string sellname, std::string sellmail, std::string rating, std::vector<Productt> prodonsal, std::string passw) {
+	SellerName = sellname;
+	SellerMail = sellmail;
+	Rating = rating;
+	ProdOnSale = prodonsal;
+	Password = passw;
+
+}
+
+Sellerr::Sellerr(std::string sellname) {
+	SellerName = sellname;
+}
+
+Sellerr::Sellerr() {
+}
+
+std::string Sellerr::GetSellerName() {
+	return SellerName;
+}
+
+std::string Sellerr::GetSellerMail() {
+	return SellerMail;
+}
+
+std::string Sellerr::GetRating() {
+	return Rating;
+}
+
+std::vector<Productt> Sellerr::GetProdOnSale() {
+	return ProdOnSale;
+}
+
+std::string Sellerr::GetPassword() {
+	return Password;
+}
+
+
+Productt::Productt(std::string prodname, std::string price, std::string descript, std::string ProdID, std::string rating, std::vector<Revieww> review, Sellerr selMan) {
+	ProdName = prodname;
+	Price = price;
+	Description = descript;
+	ProductID = ProdID;
+	Rating = rating;
+	Reviews = review;
+	SellerMan = selMan;
+	
+}
+
+Productt::Productt(std::string prodname) {
+	ProdName = prodname;
+}
+
+Productt::Productt() {
+
+}
+
+std::string Productt::GetProdName() {
+	return ProdName;
+}
+
+std::string Productt::GetPrice() {
+	return Price;
+}
+
+std::string Productt::GetDescript() {
+	return Description;
+}
+
+std::string Productt::GetProdID() {
+	return ProductID;
+}
+
+std::string Productt::GetRating() {
+	return Rating;
+}
+
+Sellerr Productt::GetSeller() {
+	return SellerMan;
+}
+
+std::vector<Revieww> Productt::GetReviews() {
+	return Reviews;
+}
+
+
+Revieww::Revieww(std::string textOfRev, std::string grade, std::string productID, Customerr customer) {
+	TextOfR = textOfRev;
+	Grade = grade;
+	ProdID = productID;
+	Customer = customer;
+}
+Revieww::Revieww(std::string textOfRev) {
+	TextOfR = textOfRev;
+}
+Revieww::Revieww() {
+
+}
+
+std::string Revieww::GetTextOfR() {
+	return TextOfR;
+}
+std::string Revieww::GetGrade() {
+	return Grade;
+}
+std::string Revieww::GetProdID() {
+	return ProdID;
+}
+Customerr Revieww::GetCustomer() {
+	return Customer;
+}
+
+
+ParamOfSearchh::ParamOfSearchh(std::string minPr, std::string maxPr, std::string minrating, bool withreview) {
+	MinPrice = minPr;
+	MaxPrice = maxPr;
+	MinRating = minrating;
+	WithReview = withreview;
+}
+
+ParamOfSearchh::ParamOfSearchh(std::string minPr) {
+	MinPrice = minPr;
+}
+
+ParamOfSearchh::ParamOfSearchh() {
+}
+
 bool IsItInt(std::string check) {
 	for (size_t i = 0; i < check.size(); i++) {
 		if (check[i] < '0' || check[i] > '9') {
