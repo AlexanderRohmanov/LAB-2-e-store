@@ -1,5 +1,75 @@
 #include "Header.h"
 
+CustomerCL::CustomerCL(std::string custname, std::string passw, std::string mail)
+{
+	CustomerName = custname;
+	Password = passw;
+	CustomerMail = mail;
+}
+CustomerCL::CustomerCL(std::string custname)
+{
+	CustomerName = custname;
+}
+
+CustomerCL::CustomerCL()
+{
+	
+}
+
+std::string CustomerCL::GetCustomerName() {
+	return CustomerName;
+}
+
+std::string CustomerCL::GetCustomerPassword() {
+	return Password;
+}
+
+std::string CustomerCL::GetCustomerMail() {
+	return CustomerMail;
+}
+
+//ListOfProductt Customerr::GetPurchasedProduct() {
+//	return PurchasedProduct;
+//}
+
+
+
+//Sellerr::Sellerr(std::string sellname, std::string sellmail, std::string rating, std::vector<Productt> prodonsal, std::string passw) {
+//	SellerName = sellname;
+//	SellerMail = sellmail;
+//	Rating = rating;
+//	ProdOnSale = prodonsal;
+//	Password = passw;
+//
+//}
+//
+//Sellerr::Sellerr(std::string sellname) {
+//	SellerName = sellname;
+//}
+//
+//Sellerr::Sellerr() {
+//}
+//
+//std::string Sellerr::GetSellerName() {
+//	return SellerName;
+//}
+//
+//std::string Sellerr::GetSellerMail() {
+//	return SellerMail;
+//}
+//
+//std::string Sellerr::GetRating() {
+//	return Rating;
+//}
+//
+//std::vector<Productt> Sellerr::GetProdOnSale() {
+//	return ProdOnSale;
+//}
+//
+//std::string Sellerr::GetPassword() {
+//	return Password;
+//}
+///
 bool IsItInt(std::string check) {
 	for (size_t i = 0; i < check.size(); i++) {
 		if (check[i] < '0' || check[i] > '9') {
