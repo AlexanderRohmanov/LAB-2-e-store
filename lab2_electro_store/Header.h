@@ -7,7 +7,6 @@
 #include <fstream>
 
 
-
 class Revieww;
 class Sellerr;
 class Productt;
@@ -18,8 +17,6 @@ typedef std::vector<Sellerr> ListOfSellerr;
 typedef std::vector<Productt> ListOfProductt;
 typedef std::vector<Customerr> ListOfCustomerr;
 typedef std::vector<Productt> ListWithSortedPP;
-
-
 
 
 class Customerr {
@@ -39,7 +36,7 @@ public:
 	std::string GetCustomerPassword();
 	std::string GetCustomerMail();
 	ListOfProductt GetPurchProd();
-
+	void OutputCustomerName();
 
 };
 
@@ -126,69 +123,15 @@ public:
 
 
 
-///
-
-struct Review;
-struct Seller;
-struct Product;
-struct Customer;
-
-typedef std::vector<Review> ListOfReview;
-typedef std::vector<Seller> ListOfSeller;
-typedef std::vector<Product> ListOfProduct;
-typedef std::vector<Customer> ListOfCustomer;
-typedef std::vector<Product> ListWithSortedP;
-
-
-struct Customer {
-	std::string CustomerName;
-	std::vector<Product> PurchasedProduct;
-	std::string Password;
-	std::string CustomerMail;
-	
-};
-
-struct Seller {
-	std::string SellerName;
-	std::string SellerMail;
-	std::string Rating = "-";
-	std::vector<Product> ProdOnSale;
-	std::string Password;
-};
-
-struct Product {
-	std::string ProdName;
-	std::string Price;
-	Seller SellerMan;
-	std::string Description;
-	std::vector<Review> Reviews;
-	std::string ProductID;
-	std::string Rating;
-};
-
-struct Review {
-	Customer Customer;
-	std::string TextOfR;
-	std::string Grade;
-	std::string ProdID;
-};
-
-struct ParamForSearch {
-	std::string MinPrice;
-	std::string MaxPrice;
-	std::string MinRating;
-	bool WithReview;
-};
-
 Revieww MakeReview(Customerr Customer, std::string prodID);
 void NewReview(ListOfRevieww* ReviewList, Customerr* Customer);
-void AddReview(std::string ProdID, ListOfProduct* ProdList, Customer* Customer);
+void AddReview(std::string ProdID, ListOfProductt* ProdList, Customerr* Customer);
 bool LoginOnSite(ListOfCustomerr customers, Customerr* customer);
 bool LoginOnSite(ListOfSellerr sellers, Sellerr* seller);
 
 void CustomerRegistr(ListOfCustomerr* customers);
 
 void MakeNewProduct(ListOfProductt* ProductList, Sellerr* seller);
-ParamForSearch NewParam(std::string MinPrice, std::string MaxPrice, std::string MinRating, bool WithReview);
+
 ParamOfSearchh MakeNewParam();
 void OutputProductInformation(Productt prod);

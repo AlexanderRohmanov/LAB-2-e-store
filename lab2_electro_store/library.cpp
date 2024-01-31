@@ -301,7 +301,9 @@ void OutputProductInformation(Productt prod) {
 	std::cout << "Продавец: " << prod.GetSeller().GetSellerName();
 }
 
-
+void Customerr::OutputCustomerName() {
+	std::cout << CustomerName;
+}
 
 void CustomerRegistr(ListOfCustomerr* customers) {  //функция для создания нового аккаунта для покупателя
 	std::string name;
