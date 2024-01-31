@@ -70,12 +70,13 @@ private:
 	std::string Price;
 	std::string Description;
 	std::string ProductID;
-	std::string Rating;
+	std::string Rating = "-";
 	std::vector<Revieww> Reviews;
 	Sellerr SellerMan;
 
 public:
 	Productt(std::string prodname, std::string price, std::string descript, std::string ProdID, std::string rating, std::vector<Revieww> Reviews, Sellerr SellerMan);
+	Productt(std::string prodname, std::string price, std::string descript, std::string ProdID, Sellerr SellerMan);
 	Productt(std::string prodname);
 	Productt();
 
@@ -116,6 +117,11 @@ public:
 	ParamOfSearchh(std::string minPr, std::string maxPr, std::string minrating, bool withreview);
 	ParamOfSearchh(std::string minPr);
 	ParamOfSearchh();
+
+	std::string GetMinPrice();
+	std::string GetMaxPrice();
+	std::string GetMinRating();
+	bool GetWithReview();
 };
 
 
@@ -174,15 +180,15 @@ struct ParamForSearch {
 	bool WithReview;
 };
 
-Review MakeReview(Customer Customer);
-void NewReview(ListOfReview* ReviewList, Customer* Customer);
+Revieww MakeReview(Customerr Customer, std::string prodID);
+void NewReview(ListOfRevieww* ReviewList, Customerr* Customer);
 void AddReview(std::string ProdID, ListOfProduct* ProdList, Customer* Customer);
-bool LoginOnSite(ListOfCustomer customers, Customer* customer);
-bool LoginOnSite(ListOfSeller sellers, Seller* seller);
-Customer NewCustomer(std::string name, std::string password, std::string mail);
-void CustomerRegistr(ListOfCustomer* customers);
-Product NewProduct(std::string NameOfProd, std::string Price, std::string ProdID, std::string Descript);
-void MakeNewProduct(ListOfProduct* ProductList, Seller* seller);
+bool LoginOnSite(ListOfCustomerr customers, Customerr* customer);
+bool LoginOnSite(ListOfSellerr sellers, Sellerr* seller);
+
+void CustomerRegistr(ListOfCustomerr* customers);
+
+void MakeNewProduct(ListOfProductt* ProductList, Sellerr* seller);
 ParamForSearch NewParam(std::string MinPrice, std::string MaxPrice, std::string MinRating, bool WithReview);
-ParamForSearch MakeNewParam();
-void OutputProductInformation(Product prod);
+ParamOfSearchh MakeNewParam();
+void OutputProductInformation(Productt prod);

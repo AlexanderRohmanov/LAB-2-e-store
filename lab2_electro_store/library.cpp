@@ -81,6 +81,15 @@ Productt::Productt(std::string prodname, std::string price, std::string descript
 	
 }
 
+Productt::Productt(std::string prodname, std::string price, std::string descript, std::string ProdID, Sellerr selMan) {
+	ProdName = prodname;
+	Price = price;
+	Description = descript;
+	ProductID = ProdID;
+	SellerMan = selMan;
+
+}
+
 Productt::Productt(std::string prodname) {
 	ProdName = prodname;
 }
@@ -159,6 +168,19 @@ ParamOfSearchh::ParamOfSearchh(std::string minPr) {
 ParamOfSearchh::ParamOfSearchh() {
 }
 
+std::string ParamOfSearchh::GetMaxPrice() {
+	return MaxPrice;
+}
+std::string ParamOfSearchh::GetMinPrice() {
+	return MinPrice;
+}
+std::string ParamOfSearchh::GetMinRating() {
+	return MinRating;
+}
+bool ParamOfSearchh::GetWithReview() {
+	return WithReview;
+}
+
 bool IsItInt(std::string check) {
 	for (size_t i = 0; i < check.size(); i++) {
 		if (check[i] < '0' || check[i] > '9') {
@@ -207,11 +229,10 @@ std::string GradeCorrecting(std::string grade) {
 	return ourGrade;
 }
 
-Review MakeReview(Customer Customer) {
+Revieww MakeReview(Customerr Customer, std::string prodID) {
 
 	std::string Grade;
 	std::string TextOfRev;
-	Review NewRev;
 
 	
 	do {
@@ -221,48 +242,36 @@ Review MakeReview(Customer Customer) {
 	while (getchar() != '\n');
 	std::cout << "\nВаш отзыв: ";
 	std::getline(std::cin, TextOfRev);
-	
-	NewRev.Customer = Customer;
-	NewRev.Grade = Grade;
-	NewRev.TextOfR = TextOfRev;
 
-	return NewRev;
+	return Revieww(TextOfRev, Grade, prodID ,Customer);
 	
 }
 
-void NewReview(ListOfReview *ReviewList, Customer* Customer) {
-	(*ReviewList).push_back(MakeReview(*Customer));
+void NewReview(ListOfRevieww *ReviewList, Customerr* Customer, std::string prodID) {
+	(*ReviewList).push_back(MakeReview(*Customer, prodID));
 }
 
-void AddReview(std::string ProdID, ListOfProduct* ProdList, Customer* Customer) { //добавление отзыва на товар
+void AddReview(std::string ProdID, ListOfProductt* ProdList, Customerr* Customer) { //добавление отзыва на товар
 	for (size_t i = 0; i != (*ProdList).size(); i++) {
-		if ((*ProdList)[i].ProductID == ProdID) {
-			(*ProdList)[i].Reviews.push_back(MakeReview(*Customer));
+		if ((*ProdList)[i].GetProdID() == ProdID) {
+			(*ProdList)[i].GetReviews().push_back(MakeReview(*Customer, (*ProdList)[i].GetProdID()));
 			int SumRate = 0;
-			for (size_t k = 0; k != (*ProdList)[i].Reviews.size(); k++) {
-				SumRate += stoi((*ProdList)[i].Reviews[k].Grade);
+			for (size_t k = 0; k != (*ProdList)[i].GetReviews().size(); k++) {
+				SumRate += stoi((*ProdList)[i].GetReviews()[k].GetGrade());
 
 			}
-			double Rate = SumRate / (*ProdList)[i].Reviews.size();
-			(*ProdList)[i].Rating = GradeCorrecting(std::to_string(Rate));
-			(*Customer).PurchasedProduct.push_back((*ProdList)[i]);
+			double Rate = SumRate / (*ProdList)[i].GetReviews().size();
+			(*ProdList)[i].GetRating() = GradeCorrecting(std::to_string(Rate));
+			(*Customer).GetPurchProd().push_back((*ProdList)[i]);
 		}
 	}
 }
 
 
 
-Product NewProduct(std::string NameOfProd, std::string Price, std::string ProdID, std::string Descript) {
-	Product nProduct;
-	nProduct.ProdName = NameOfProd;
-	nProduct.Price = Price;
-	nProduct.ProductID = ProdID;
-	nProduct.Description = Descript;
 
-	return nProduct;
-}
 
-void MakeNewProduct(ListOfProduct *ProductList, Seller* seller) { //создание нового продукта
+void MakeNewProduct(ListOfProductt *ProductList, Sellerr* seller) { //создание нового продукта
 	std::string NameOfProd;
 	std::string Price;
 	std::string ProdID;
@@ -278,28 +287,23 @@ void MakeNewProduct(ListOfProduct *ProductList, Seller* seller) { //создание нов
 		std::cout << "Введите цену: ";
 		std::cin >> Price;
 	} while (!IsItInt(Price));
-	Product nProduct = NewProduct(NameOfProd, Price, ProdID, Descript);
-	ProductList->push_back(nProduct);
-	seller->ProdOnSale.push_back(nProduct);
+	
+	ProductList->push_back(Productt(NameOfProd, Price,Descript, ProdID, *seller));
+	seller->GetProdOnSale().push_back(Productt(NameOfProd, Price, Descript, ProdID, *seller));
 }
 
-void OutputProductInformation(Product prod) {
+void OutputProductInformation(Productt prod) {
 	std::cout << "---- Информация о товаре ----\n\n";
-	std::cout << prod.ProdName << "\n";
-	std::cout << "Цена " << prod.Price << "\n";
-	std::cout << "Оценка: " << prod.Rating << " / 5.0\n";
-	std::cout << "Описание:\n" << prod.Description <<"\n";
-	std::cout << "Продавец: " << prod.SellerMan.SellerName;
+	std::cout << prod.GetProdName() << "\n";
+	std::cout << "Цена " << prod.GetPrice() << "\n";
+	std::cout << "Оценка: " << prod.GetRating() << " / 5.0\n";
+	std::cout << "Описание:\n" << prod.GetDescript() << "\n";
+	std::cout << "Продавец: " << prod.GetSeller().GetSellerName();
 }
 
-Customer NewCustomer(std::string name, std::string password, std::string mail) { //вспомогательная функция создания нового аккаунта для покупателя
-	Customer nCustomer;
-	nCustomer.CustomerName = name;
-	nCustomer.Password = password;
-	nCustomer.CustomerMail = mail;
-	return nCustomer;
-}
-void CustomerRegistr(ListOfCustomer* customers) {  //функция для создания нового аккаунта для покупателя
+
+
+void CustomerRegistr(ListOfCustomerr* customers) {  //функция для создания нового аккаунта для покупателя
 	std::string name;
 	std::string password;
 	std::string mail;
@@ -314,10 +318,10 @@ void CustomerRegistr(ListOfCustomer* customers) {  //функция для создания нового
 	bool IsExist = false;
 
 	for (int i = 0; i < (*customers).size(); i++) {
-		if ((*customers)[i].CustomerName == name || (*customers)[i].CustomerMail == mail) IsExist = true;
+		if ((*customers)[i].GetCustomerName() == name || (*customers)[i].GetCustomerMail() == mail) IsExist = true;
 	}
 	if (IsExist == false) {
-		(*customers).push_back(NewCustomer(name, password, mail));
+		customers->push_back(Customerr(name, password, mail));
 	}
 	else {
 		std::cout << "Аккаунт с таким именем или почтой уже существует!";
@@ -325,14 +329,14 @@ void CustomerRegistr(ListOfCustomer* customers) {  //функция для создания нового
 
 }
 
-bool LoginOnSite(ListOfCustomer customers, Customer* customer) { //функция входа для покупателя
+bool LoginOnSite(ListOfCustomerr customers, Customerr* customer) { //функция входа для покупателя
 	std::cout << "------ Вход на сайт (если вы покупатель)------\n";
 	std::string login;
 	std::string password;
 	InputLogin(&login);
 	InputPassword(&password);
 	for (int i = 0; i < customers.size(); i++) {
-		if (customers[i].CustomerName == login && customers[i].Password == password) {
+		if (customers[i].GetCustomerName() == login && customers[i].GetCustomerPassword() == password) {
 			*customer = customers[i];
 			return true;
 		}
@@ -341,14 +345,14 @@ bool LoginOnSite(ListOfCustomer customers, Customer* customer) { //функция входа
 	return false;
 	
 }
-bool LoginOnSite(ListOfSeller sellers, Seller* seller) { //перегрузка функции входа для продавца
+bool LoginOnSite(ListOfSellerr sellers, Sellerr* seller) { //перегрузка функции входа для продавца
 	std::cout << "------ Вход на сайт (если вы продавец)------\n";
 	std::string login;
 	std::string password;
 	InputLogin(&login);
 	InputPassword(&password);
 	for (int i = 0; i < sellers.size(); i++) {
-		if (sellers[i].SellerName == login && sellers[i].Password == password) {
+		if (sellers[i].GetSellerName() == login && sellers[i].GetPassword() == password) {
 			*seller = sellers[i];
 			return true;
 		}
@@ -357,18 +361,8 @@ bool LoginOnSite(ListOfSeller sellers, Seller* seller) { //перегрузка функции вх
 	return false;
 }
 
-ParamForSearch NewParam(std::string MinPrice, std::string MaxPrice, std::string MinRating, bool WithReview) {
-	ParamForSearch nParam;
 
-	nParam.MinPrice = MinPrice;
-	nParam.MaxPrice = MaxPrice;
-	nParam.MinRating = MinRating;
-	nParam.WithReview = WithReview;
-
-	return nParam;
-}
-
-ParamForSearch MakeNewParam() {
+ParamOfSearchh MakeNewParam() {
 	std::string MinPrice, MaxPrice, MinRating;
 	bool WithReview;
 	int check;
@@ -393,20 +387,20 @@ ParamForSearch MakeNewParam() {
 	else {
 		WithReview = false;
 	}
-	return (NewParam(MinPrice, MaxPrice, MinRating, WithReview));
+	return (ParamOfSearchh(MinPrice, MaxPrice, MinRating, WithReview));
 }
 
-ListWithSortedP SearchProduct(ListOfProduct products, ParamForSearch params) {
+ListWithSortedPP SearchProduct(ListOfProductt products, ParamOfSearchh params) {
 	int countOfС = 3;
 	int curCount = 0;
-	ListWithSortedP sortedlist;
+	ListWithSortedPP sortedlist;
 	for (int i = 0; i < products.size(); i++) {
-		if (stoi(products[i].Price) >= stoi(params.MinPrice)) curCount++;
-		if (stoi(products[i].Price) <= stoi(params.MaxPrice)) curCount++;
-		if (products[i].Reviews.size() == 0 && params.WithReview == false) {
+		if (stoi(products[i].GetPrice()) >= stoi(params.GetMinPrice())) curCount++;
+		if (stoi(products[i].GetPrice()) <= stoi(params.GetMaxPrice())) curCount++;
+		if (products[i].GetReviews().size() == 0 && params.GetWithReview() == false) {
 			curCount++;
 		}
-		if (products[i].Reviews.size() > 0 && params.WithReview == true) {
+		if (products[i].GetReviews().size() > 0 && params.GetWithReview() == true) {
 			curCount++;
 		}
 		if (curCount == countOfС) sortedlist.push_back(products[i]);
