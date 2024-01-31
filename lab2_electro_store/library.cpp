@@ -17,7 +17,7 @@ bool IsIntCorrect(std::string check, int MaxInt) {
 			return false;
 		}
 		else if (stoi(check) < 0) {
-			std::cout << "\nНеверное значение! Значение не долэно быть меньше 0!";
+			std::cout << "\nНеверное значение! Значение не должно быть меньше 0!";
 			return false;
 		}
 		return true;
@@ -75,7 +75,7 @@ void NewReview(ListOfReview *ReviewList, Customer* Customer) {
 	(*ReviewList).push_back(MakeReview(*Customer));
 }
 
-void AddReview(std::string ProdID, ListOfProduct* ProdList, Customer* Customer) {
+void AddReview(std::string ProdID, ListOfProduct* ProdList, Customer* Customer) { //добавление отзыва на товар
 	for (size_t i = 0; i != (*ProdList).size(); i++) {
 		if ((*ProdList)[i].ProductID == ProdID) {
 			(*ProdList)[i].Reviews.push_back(MakeReview(*Customer));
@@ -103,7 +103,7 @@ Product NewProduct(std::string NameOfProd, std::string Price, std::string ProdID
 	return nProduct;
 }
 
-void MakeNewProduct(ListOfProduct *ProductList, Seller* seller) {
+void MakeNewProduct(ListOfProduct *ProductList, Seller* seller) { //создание нового продукта
 	std::string NameOfProd;
 	std::string Price;
 	std::string ProdID;
@@ -119,23 +119,32 @@ void MakeNewProduct(ListOfProduct *ProductList, Seller* seller) {
 		std::cout << "Введите цену: ";
 		std::cin >> Price;
 	} while (!IsItInt(Price));
-	Product nProduct = NewProduct(NameOfProd, Price, ProdID);
-	(*ProductList).push_back(nProduct);
+	Product nProduct = NewProduct(NameOfProd, Price, ProdID, Descript);
+	ProductList->push_back(nProduct);
 	seller->ProdOnSale.push_back(nProduct);
 }
 
-Customer NewCustomer(std::string name, std::string password, std::string mail) {
+void OutputProductInformation(Product prod) {
+	std::cout << "---- Информация о товаре ----\n\n";
+	std::cout << prod.ProdName << "\n";
+	std::cout << "Цена " << prod.Price << "\n";
+	std::cout << "Оценка: " << prod.Rating << " / 5.0\n";
+	std::cout << "Описание:\n" << prod.Description <<"\n";
+	std::cout << "Продавец: " << prod.SellerMan.SellerName;
+}
+
+Customer NewCustomer(std::string name, std::string password, std::string mail) { //вспомогательная функция создания нового аккаунта для покупателя
 	Customer nCustomer;
 	nCustomer.CustomerName = name;
 	nCustomer.Password = password;
 	nCustomer.CustomerMail = mail;
 	return nCustomer;
 }
-void CustomerRegistr(ListOfCustomer* customers) {
+void CustomerRegistr(ListOfCustomer* customers) {  //функция для создания нового аккаунта для покупателя
 	std::string name;
 	std::string password;
 	std::string mail;
-
+	std::cout << "---- Регистрация покупателя ----\n\n";
 	std::cout << "Введите имя: ";
 	std::cin >> name;
 	std::cout << "Введите адрес электронной почты: ";
@@ -158,6 +167,7 @@ void CustomerRegistr(ListOfCustomer* customers) {
 }
 
 bool LoginOnSite(ListOfCustomer customers, Customer* customer) { //функция входа для покупателя
+	std::cout << "------ Вход на сайт (если вы покупатель)------\n";
 	std::string login;
 	std::string password;
 	InputLogin(&login);
@@ -173,6 +183,7 @@ bool LoginOnSite(ListOfCustomer customers, Customer* customer) { //функция входа
 	
 }
 bool LoginOnSite(ListOfSeller sellers, Seller* seller) { //перегрузка функции входа для продавца
+	std::cout << "------ Вход на сайт (если вы продавец)------\n";
 	std::string login;
 	std::string password;
 	InputLogin(&login);
@@ -211,7 +222,8 @@ ParamForSearch MakeNewParam() {
 		std::cin >> MaxPrice;
 	} while (!IsItInt(MaxPrice));
 	
-	
+	std::cout << "Обязательно ли у товара наличие хотя бы дного отзыва?\n1 - ДА\n0 - НЕТ\n";
+	std::cin >> check;
 	if (check == 1) {
 		do {
 			std::cout << "Введите МИНИМАЛЬНЫЙ рейтинг товара: ";
@@ -240,4 +252,5 @@ ListWithSortedP SearchProduct(ListOfProduct products, ParamForSearch params) {
 		}
 		if (curCount == countOfС) sortedlist.push_back(products[i]);
 	}
+	return sortedlist;
 }

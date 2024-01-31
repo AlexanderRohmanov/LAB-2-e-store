@@ -70,3 +70,4 @@ Product NewProduct(std::string NameOfProd, std::string Price, std::string ProdID
 void MakeNewProduct(ListOfProduct* ProductList, Seller* seller);
 ParamForSearch NewParam(std::string MinPrice, std::string MaxPrice, std::string MinRating, bool WithReview);
 ParamForSearch MakeNewParam();
+void OutputProductInformation(Product prod);

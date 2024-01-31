@@ -4,7 +4,7 @@
 
 void Dynamic() { //работа с динамической  переменной
 	Product* productONE = new Product;
-	Product productTWO = NewProduct("NVIDIA GTX 1650", "20000", "100");
+	Product productTWO = NewProduct("NVIDIA GTX 1650", "20000", "100", "Классика из мира бюджетных видеокарт.");
 
 	*productONE = productTWO;
 
@@ -15,6 +15,8 @@ void Dynamic() { //работа с динамической  переменной
 int main() {
 	
 	setlocale(LC_ALL, "Rus");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
 	
 	std::cout << "Работа с динам.\n\n";
 	Dynamic();
