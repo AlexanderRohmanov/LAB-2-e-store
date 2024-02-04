@@ -31,7 +31,10 @@ ListOfProductt Customerr::GetPurchProd() {
 	return PurchasedProduct;
 }
 
-
+int Productt::countOfProducts = 0;
+int Productt::GetCount() {
+	return countOfProducts;
+}
 
 Sellerr::Sellerr(std::string sellname, std::string sellmail, std::string rating, std::vector<Productt> prodonsal, std::string passw) {
 	SellerName = sellname;
@@ -39,7 +42,7 @@ Sellerr::Sellerr(std::string sellname, std::string sellmail, std::string rating,
 	Rating = rating;
 	ProdOnSale = prodonsal;
 	Password = passw;
-
+	
 }
 
 Sellerr::Sellerr(std::string sellname) {
@@ -78,7 +81,8 @@ Productt::Productt(std::string prodname, std::string price, std::string descript
 	Rating = rating;
 	Reviews = review;
 	SellerMan = selMan;
-	
+	countOfProducts++;
+	ProductID = std::to_string(countOfProducts - 1);
 }
 
 Productt::Productt(std::string prodname, std::string price, std::string descript, std::string ProdID, Sellerr selMan) {
@@ -87,15 +91,19 @@ Productt::Productt(std::string prodname, std::string price, std::string descript
 	Description = descript;
 	ProductID = ProdID;
 	SellerMan = selMan;
-
+	countOfProducts++;
+	ProductID = std::to_string(countOfProducts - 1);
 }
 
 Productt::Productt(std::string prodname) {
 	ProdName = prodname;
+	countOfProducts++;
+	ProductID = std::to_string(countOfProducts - 1);
 }
 
 Productt::Productt() {
-
+	countOfProducts++;
+	ProductID = std::to_string(countOfProducts - 1);
 }
 
 std::string Productt::GetProdName() {
@@ -125,7 +133,10 @@ Sellerr Productt::GetSeller() {
 std::vector<Revieww> Productt::GetReviews() {
 	return Reviews;
 }
-
+void ChangePrice(Productt& prod) {
+	std::cout << "¬ведите новую цену дл€ \"" << prod.GetProdName() << "\": ";
+	std::cin >> prod.Price;
+}
 
 Revieww::Revieww(std::string textOfRev, std::string grade, std::string productID, Customerr customer) {
 	TextOfR = textOfRev;

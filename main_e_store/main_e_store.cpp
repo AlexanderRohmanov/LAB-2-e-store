@@ -42,11 +42,5 @@ int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	std::cout << "Динамический массив с объектами:\n";
-	DynamicArray();
-
-	std::cout << "\n";
-
-	std::cout << "Массив  с динамическими объектами:\n";
-	DynamicObjectsArray();
+	
 }

@@ -62,6 +62,7 @@ public:
 };
 
 class Productt {
+	friend void ChangePrice(Productt& prod);
 private:
 	std::string ProdName;
 	std::string Price;
@@ -70,6 +71,7 @@ private:
 	std::string Rating = "-";
 	std::vector<Revieww> Reviews;
 	Sellerr SellerMan;
+	static int countOfProducts;
 
 public:
 	Productt(std::string prodname, std::string price, std::string descript, std::string ProdID, std::string rating, std::vector<Revieww> Reviews, Sellerr SellerMan);
@@ -84,6 +86,8 @@ public:
 	std::vector<Revieww> GetReviews();
 	std::string GetProdID();
 	std::string GetRating();
+	static int GetCount();
+	void ChangePrice(Productt& prod);
 };
 
 class Revieww {
