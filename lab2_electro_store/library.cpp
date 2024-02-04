@@ -95,6 +95,14 @@ Productt::Productt(std::string prodname, std::string price, std::string descript
 	ProductID = std::to_string(countOfProducts - 1);
 }
 
+Productt::Productt(std::string prodname, std::string price, std::string descript) {
+	ProdName = prodname;
+	Price = price;
+	Description = descript;
+	countOfProducts++;
+	ProductID = std::to_string(countOfProducts - 1);
+}
+
 Productt::Productt(std::string prodname) {
 	ProdName = prodname;
 	countOfProducts++;
@@ -138,6 +146,18 @@ void ChangePrice(Productt& prod) {
 	std::cin >> prod.Price;
 }
 
+Productt Productt::operator+(const Productt& prod) {
+	Productt prodbuf;
+
+	prodbuf.Price = std::to_string(std::stoi(Price) + std::stoi(prod.Price));
+	return prodbuf;
+}
+void Productt::printProductInform() {
+	std::cout << "--- Информация о товаре ---\n";
+	std::cout << ProdName << "\n";
+	std::cout << "Цена: " << Price << "\n";
+	std::cout << "Описание: " << Description << "\n";
+}
 Revieww::Revieww(std::string textOfRev, std::string grade, std::string productID, Customerr customer) {
 	TextOfR = textOfRev;
 	Grade = grade;

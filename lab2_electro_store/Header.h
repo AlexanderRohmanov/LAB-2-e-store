@@ -76,9 +76,11 @@ private:
 public:
 	Productt(std::string prodname, std::string price, std::string descript, std::string ProdID, std::string rating, std::vector<Revieww> Reviews, Sellerr SellerMan);
 	Productt(std::string prodname, std::string price, std::string descript, std::string ProdID, Sellerr SellerMan);
+	Productt(std::string prodname, std::string price, std::string descript);
 	Productt(std::string prodname);
 	Productt();
 
+	Productt operator+(const Productt& prod);
 	std::string GetProdName();
 	std::string GetPrice();
 	Sellerr GetSeller();
@@ -88,6 +90,7 @@ public:
 	std::string GetRating();
 	static int GetCount();
 	void ChangePrice(Productt& prod);
+	void printProductInform();
 };
 
 class Revieww {
