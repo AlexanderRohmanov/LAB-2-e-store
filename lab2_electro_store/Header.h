@@ -112,6 +112,7 @@ public:
 };
 
 class ParamOfSearchh {
+
 private:
 	std::string MinPrice;
 	std::string MaxPrice;
@@ -122,10 +123,12 @@ public:
 	ParamOfSearchh(std::string minPr);
 	ParamOfSearchh();
 
+	ParamOfSearchh operator++(int value);
 	std::string GetMinPrice();
 	std::string GetMaxPrice();
 	std::string GetMinRating();
 	bool GetWithReview();
+	void printParamForSearch();
 };
 
 

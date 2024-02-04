@@ -42,9 +42,11 @@ int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	Productt prodONE = Productt("RTX 3060", "10000", "Отличная видеокарта...");
-	Productt prodTWO = Productt("RTX 3060 ti", "15000", "Отличная видеокарта...");
+	
 
-	Productt prodTHREE = prodONE + prodTWO;
-	std::cout << "Цена prodTHREE: " << prodTHREE.GetPrice();
+	ParamOfSearchh paramONE = ParamOfSearchh("1000", "5000", "0", true);
+	paramONE.printParamForSearch();
+	ParamOfSearchh paramTWO = paramONE++;
+	std::cout << "\nПосле использования оператора \"++\"\n";
+	paramTWO.printParamForSearch();
 }

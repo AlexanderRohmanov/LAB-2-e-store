@@ -146,6 +146,15 @@ void ChangePrice(Productt& prod) {
 	std::cin >> prod.Price;
 }
 
+ParamOfSearchh ParamOfSearchh::operator++(int value) {
+	ParamOfSearchh param(*this);
+	int newMax = std::stoi(param.MaxPrice);
+	newMax+=100;
+	param.MaxPrice = std::to_string(newMax);
+
+	return param;
+}
+
 Productt Productt::operator+(const Productt& prod) {
 	Productt prodbuf;
 
@@ -298,7 +307,12 @@ void AddReview(std::string ProdID, ListOfProductt* ProdList, Customerr* Customer
 	}
 }
 
-
+void ParamOfSearchh::printParamForSearch() {
+	std::cout << "--- Параметры поиска ---\n";
+	std::cout << "Макс. цена: " << GetMaxPrice() <<"\n";
+	std::cout << "Мин. цена: " << GetMinPrice() << "\n";
+	std::cout << "Мин. оценка: " << GetMinRating();
+}
 
 
 
