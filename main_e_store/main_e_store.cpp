@@ -42,11 +42,8 @@ int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	
-
-	ParamOfSearchh paramONE = ParamOfSearchh("1000", "5000", "0", true);
-	paramONE.printParamForSearch();
-	ParamOfSearchh paramTWO = paramONE++;
-	std::cout << "\nПосле использования оператора \"++\"\n";
-	paramTWO.printParamForSearch();
+	Productt productONE[4] = {Productt("RTX 3060"), Productt("RTX 3060 ti"), Productt("RTX 4060"), Productt("RTX 4090")};
+	for (int i = 0; i < 4; i++) {
+		std::cout << "ID: " << productONE[i].GetProdID() << " " << productONE[i].GetProdName() << "\n";
+	}
 }

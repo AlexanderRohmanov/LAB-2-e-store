@@ -247,6 +247,29 @@ bool IsIntCorrect(std::string check, int MaxInt) {
 	
 }
 
+void printProductList(ListOfProductt productlist) {
+	if (productlist.size() == 0) {
+		throw std::exception("Список пуст!");
+	}
+	for (Productt product : productlist) {
+		product.printProductInform();
+	}
+}
+
+void Sellerr::printSellerInform() {
+	std::cout << "--- Информация о продавце " << SellerName << " ---\n";
+	std::cout << SellerName << "\n";
+	std::cout << "Mail: " << SellerMail << "\n";
+	std::cout << "Рейтинг: " << Rating << "/5.0\n";
+	std::cout << "\n--- Список товаров ---\n";
+	try {
+		printProductList(ProdOnSale);
+	}
+	catch (const std::exception& excep) {
+		std::cout << excep.what();
+	}
+}
+
 void InputLogin(std::string* login) {
 	std::cout << "Введите логин: ";
 	std::cin >> *login;

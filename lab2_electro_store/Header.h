@@ -59,6 +59,7 @@ public:
 	std::string GetRating();
 	ListOfProductt GetProdOnSale();
 	std::string GetPassword();
+	void printSellerInform();
 };
 
 class Productt {
@@ -91,6 +92,7 @@ public:
 	static int GetCount();
 	void ChangePrice(Productt& prod);
 	void printProductInform();
+	
 };
 
 class Revieww {
@@ -142,6 +144,6 @@ bool LoginOnSite(ListOfSellerr sellers, Sellerr* seller);
 void CustomerRegistr(ListOfCustomerr* customers);
 
 void MakeNewProduct(ListOfProductt* ProductList, Sellerr* seller);
-
+void printProductList(ListOfProductt);
 ParamOfSearchh MakeNewParam();
 void OutputProductInformation(Productt prod);
